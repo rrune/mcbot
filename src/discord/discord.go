@@ -70,7 +70,7 @@ func (h handler) CommandHandler(s *discordgo.Session, i *discordgo.InteractionCr
 	case "remove":
 		username := i.ApplicationCommandData().Options[0].Options[0].StringValue()
 
-		h.rcon.AddRecovery(username)
+		h.rcon.RemoveRecovery(username)
 
 		content = "Removed recovery mode from " + username
 	}

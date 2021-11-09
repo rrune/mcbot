@@ -15,7 +15,7 @@ type Rcon struct {
 
 func New() Rcon {
 	conn := new(mcrcon.MCConn)
-	err := conn.Open("mc:25575", "minecraft")
+	err := conn.Open("qnd.be:8070", "minecraft")
 	/* if err != nil {
 		log.Fatalln("Open failed", err)
 	} */
@@ -23,7 +23,7 @@ func New() Rcon {
 		err = conn.Open("mc:25575", "minecraft")
 		time.Sleep(5 * time.Second)
 	}
-	defer conn.Close()
+	//defer conn.Close()
 
 	err = conn.Authenticate()
 	if err != nil {
@@ -36,13 +36,13 @@ func New() Rcon {
 }
 
 func (r Rcon) AddRecovery(username string) {
-	_, err := r.conn.SendCommand(fmt.Sprintf("lp user %s group add recovery", username))
+	_, err := r.conn.SendCommand(fmt.Sprintf("lp user %s group add recover ", username))
 	Check(err, "Adding to group")
 	return
 }
 
 func (r Rcon) RemoveRecovery(username string) {
-	_, err := r.conn.SendCommand(fmt.Sprintf("lp user %s group remove recovery", username))
+	_, err := r.conn.SendCommand(fmt.Sprintf("lp user %s group remove recover ", username))
 	Check(err, "Adding to group")
 	return
 }
