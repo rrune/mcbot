@@ -3,6 +3,7 @@ package rcon
 import (
 	"fmt"
 	"log"
+	"time"
 
 	mcrcon "github.com/Kelwing/mc-rcon"
 	. "github.com/rrune/mcbot/util"
@@ -20,6 +21,7 @@ func New() Rcon {
 	} */
 	for err != nil {
 		err = conn.Open("mc:25575", "minecraft")
+		time.Sleep(5 * time.Second)
 	}
 	defer conn.Close()
 
