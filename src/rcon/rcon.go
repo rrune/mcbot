@@ -15,7 +15,7 @@ type Rcon struct {
 
 func New() Rcon {
 	conn := new(mcrcon.MCConn)
-	err := conn.Open("qnd.be:8070", "minecraft")
+	err := conn.Open("mc:25575", "minecraft")
 	/* if err != nil {
 		log.Fatalln("Open failed", err)
 	} */
