@@ -30,7 +30,7 @@ func main() {
 	Check(err, "error opening connection")
 
 	commands := h.GetCommands()
-	_, err = dg.ApplicationCommandCreate(dg.State.User.ID, config.GuildID, commands)
+	_, err = dg.ApplicationCommandCreate(dg.State.User.ID, "", commands)
 	Check(err, fmt.Sprintf("Cannot create '%v' command: %v", commands.Name, err))
 
 	fmt.Println("Bot is now running.  Press CTRL-C to exit.")
