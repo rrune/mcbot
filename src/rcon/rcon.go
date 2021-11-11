@@ -9,40 +9,40 @@ import (
 	. "github.com/rrune/mcbot/util"
 )
 
-type Rcon struct {
-	conn *mcrcon.MCConn
-}
+type Rcon struct{}
 
 func New() Rcon {
+	return Rcon{}
+}
+
+func (r Rcon) GetConnection() mcrcon.MCConn {
 	conn := new(mcrcon.MCConn)
 	err := conn.Open("mc:25575", "minecraft")
-	/* if err != nil {
-		log.Fatalln("Open failed", err)
-	} */
+
 	for err != nil {
 		err = conn.Open("mc:25575", "minecraft")
 		time.Sleep(5 * time.Second)
 	}
-	//defer conn.Close()
 
 	err = conn.Authenticate()
 	if err != nil {
 		log.Fatalln("Auth failed", err)
 	}
 
-	return Rcon{
-		conn: conn,
-	}
+	return *conn
 }
 
 func (r Rcon) AddRecovery(username string) {
-	_, err := r.conn.SendCommand(fmt.Sprintf("lp user %s group add recover ", username))
+	conn := r.GetConnection()
+	defer conn.Close()
+	_, err :=
+		conn.SendCommand(fmt.Sprintf("lp user %s group add recover ", username))
 	Check(err, "Adding to group")
-	return
 }
 
 func (r Rcon) RemoveRecovery(username string) {
-	_, err := r.conn.SendCommand(fmt.Sprintf("lp user %s group remove recover ", username))
+	conn := r.GetConnection()
+	defer conn.Close()
+	_, err := conn.SendCommand(fmt.Sprintf("lp user %s group remove recover ", username))
 	Check(err, "Adding to group")
-	return
 }
