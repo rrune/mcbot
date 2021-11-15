@@ -21,6 +21,12 @@ var command = &discordgo.ApplicationCommand{
 					Description: "Username to add recovery mode to",
 					Required:    true,
 				},
+				{
+					Type:        discordgo.ApplicationCommandOptionString,
+					Name:        "reason",
+					Description: "Reason for using recovery mode",
+					Required:    true,
+				},
 			},
 		},
 		{
@@ -63,10 +69,11 @@ func (h handler) CommandHandler(s *discordgo.Session, i *discordgo.InteractionCr
 	switch i.ApplicationCommandData().Options[0].Name {
 	case "add":
 		username := i.ApplicationCommandData().Options[0].Options[0].StringValue()
+		reason := i.ApplicationCommandData().Options[0].Options[1].StringValue()
 
 		h.rcon.AddRecovery(username)
 
-		content = "Set " + username + " into recovery mode"
+		content = "Set " + username + " into recovery mode because: " + reason
 	case "remove":
 		username := i.ApplicationCommandData().Options[0].Options[0].StringValue()
 
