@@ -1,0 +1,176 @@
+[{
+        "name": "BetterLeads",
+        "link": "https://www.curseforge.com/minecraft/mc-mods/betterleads",
+        "curseId": "531503",
+        "necessary": false,
+        "onCurse": true
+    },
+    {
+        "name": "Box of Placeholders",
+        "link": "https://www.curseforge.com/minecraft/mc-mods/box-of-placeholders",
+        "curseId": "448215",
+        "necessary": true,
+        "onCurse": true
+    },
+    {
+        "name": "Clumps",
+        "link": "https://www.curseforge.com/minecraft/mc-mods/clumps",
+        "curseId": "256717",
+        "necessary": false,
+        "onCurse": true
+    },
+    {
+        "name": "EditSign",
+        "link": "https://www.curseforge.com/minecraft/mc-mods/edit-sign",
+        "curseId": "344996",
+        "necessary": false,
+        "onCurse": true
+    },
+    {
+        "name": "FabricAPI",
+        "link": "https://www.curseforge.com/minecraft/mc-mods/fabric-api",
+        "curseId": "306612",
+        "necessary": true,
+        "onCurse": true
+    },
+    {
+        "name": "VoxelMap",
+        "link": "https://www.curseforge.com/minecraft/mc-mods/voxelmap",
+        "curseId": "225179",
+        "necessary": false,
+        "onCurse": true
+    },
+    {
+        "name": "Fence Player Upper",
+        "link": "https://www.curseforge.com/minecraft/mc-mods/fenceplayerupper",
+        "curseId": "405591",
+        "necessary": false,
+        "onCurse": true
+    },
+    {
+        "name": "FerritCore",
+        "link": "https://www.curseforge.com/minecraft/mc-mods/ferritecore-fabric",
+        "curseId": "459857",
+        "necessary": true,
+        "onCurse": true
+    },
+    {
+        "name": "SimpleHarvest",
+        "link": "https://www.curseforge.com/minecraft/mc-mods/simplerharvest/",
+        "curseId": "481720",
+        "necessary": false,
+        "onCurse": true
+    },
+    {
+        "name": "InfinityFix",
+        "link": "https://www.curseforge.com/minecraft/mc-mods/infinity-fix",
+        "curseId": "315804",
+        "necessary": false,
+        "onCurse": true
+    },
+    {
+        "name": "Inventory Sorting",
+        "link": "https://www.curseforge.com/minecraft/mc-mods/inventory-sorting",
+        "curseId": "325471",
+        "necessary": false,
+        "onCurse": true
+    },
+    {
+        "name": "Krypton",
+        "link": "https://www.curseforge.com/minecraft/mc-mods/krypton",
+        "curseId": "428912",
+        "necessary": true,
+        "onCurse": true
+    },
+    {
+        "name": "LazyDFU",
+        "link": "lazydfu",
+        "curseId": "433518",
+        "necessary": false,
+        "onCurse": true
+    },
+    {
+        "name": "Lithium",
+        "link": "https://www.curseforge.com/minecraft/mc-mods/lithium",
+        "curseId": "360438",
+        "necessary": false,
+        "onCurse": true
+    },
+    {
+        "name": "LuckPerms",
+        "link": "https://www.curseforge.com/minecraft/mc-mods/luckperms",
+        "curseId": "431733",
+        "necessary": true,
+        "onCurse": true
+    },
+    {
+        "name": "Minecraft Command Permissions",
+        "link": "https://github.com/TjeuKayim/minecraft-command-permissions-fabric",
+        "curseId": "",
+        "necessary": true,
+        "onCurse": false
+    },
+    {
+        "name": "Recipe Cache",
+        "link": "https://www.curseforge.com/minecraft/mc-mods/recipe-cache",
+        "curseId": "473492",
+        "necessary": false,
+        "onCurse": true
+    },
+    {
+        "name": "Reroll",
+        "link": "https://www.curseforge.com/minecraft/mc-mods/reroll",
+        "curseId": "401753",
+        "necessary": false,
+        "onCurse": true
+    },
+    {
+        "name": "Starlight",
+        "link": "https://www.curseforge.com/minecraft/mc-mods/starlight",
+        "curseId": "521783",
+        "necessary": true,
+        "onCurse": true
+    },
+    {
+        "name": "Styled Chat",
+        "link": "https://www.curseforge.com/minecraft/mc-mods/styled-chat",
+        "curseId": "493348",
+        "necessary": true,
+        "onCurse": true
+    },
+    {
+        "name": "Styled Player List",
+        "link": "https://www.curseforge.com/minecraft/mc-mods/styled-player-list",
+        "curseId": "442282",
+        "necessary": true,
+        "onCurse": true
+    },
+    {
+        "name": "TabTPS plugin version badge",
+        "link": "https://github.com/jpenilla/TabTPS",
+        "curseId": "",
+        "necessary": false,
+        "onCurse": false
+    },
+    {
+        "name": "Villagers follow Emeralds",
+        "link": "https://www.curseforge.com/minecraft/mc-mods/villagers-follow-emeralds-fabric",
+        "curseId": "391911",
+        "necessary": false,
+        "onCurse": true
+    },
+    {
+        "name": "SilkSpawners",
+        "link": "https://www.curseforge.com/minecraft/mc-mods/silkspawners",
+        "curseId": "410896",
+        "necessary": false,
+        "onCurse": true
+    },
+    {
+        "name": "Xaero's Minimap",
+        "link": "https://www.curseforge.com/minecraft/mc-mods/xaeros-minimap",
+        "curseId": "263420",
+        "necessary": false,
+        "onCurse": true
+    }
+]
