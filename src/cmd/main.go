@@ -35,7 +35,7 @@ func main() {
 	Check(err, "error opening connection")
 
 	for _, command := range handler.GetCommands() {
-		_, err = dg.ApplicationCommandCreate(dg.State.User.ID, "496332886392438786", command)
+		_, err = dg.ApplicationCommandCreate(dg.State.User.ID, "", command)
 		Check(err, fmt.Sprintf("Cannot create '%v' command: %v", command.Name, err))
 	}
 
