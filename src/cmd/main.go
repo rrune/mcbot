@@ -24,14 +24,17 @@ func main() {
 
 	h := discord.New()
 
-	dg.AddHandler(h.CommandHandler)
+	for _, handler := range h.GetHandlers() {
+		dg.AddHandler(handler)
+	}
 
 	err = dg.Open()
 	Check(err, "error opening connection")
 
-	commands := h.GetCommands()
-	_, err = dg.ApplicationCommandCreate(dg.State.User.ID, "", commands)
-	Check(err, fmt.Sprintf("Cannot create '%v' command: %v", commands.Name, err))
+	for _, command := range h.GetCommands() {
+		_, err = dg.ApplicationCommandCreate(dg.State.User.ID, "", command)
+		Check(err, fmt.Sprintf("Cannot create '%v' command: %v", command.Name, err))
+	}
 
 	fmt.Println("Bot is now running.  Press CTRL-C to exit.")
 	sc := make(chan os.Signal, 1)

@@ -5,6 +5,7 @@ import (
 	"net/http"
 	"os"
 
+	"github.com/rrune/mcbot/models"
 	. "github.com/rrune/mcbot/util"
 )
 
@@ -13,11 +14,11 @@ import (
 var client = &http.Client{}
 
 type Modcheck struct {
-	modlist []Mod
+	modlist []models.Mod
 }
 
 func Init() Modcheck {
-	modlist := []Mod{}
+	modlist := []models.Mod{}
 	//f, err := os.ReadFile("./modcheck/modlist.json")
 	f, err := os.ReadFile("./modlist.json")
 	Check(err, "Error while reading the Modlist")
@@ -30,7 +31,17 @@ func Init() Modcheck {
 	return modcheck
 }
 
-func (m Modcheck) Check() (r []ResMod) {
+func (m Modcheck) Check() (r []models.ResMod) {
+	for _, mod := range m.modlist {
+		isUpdated := m.checkMod(mod.CurseID)
+		Res := models.ResMod{
+			Name:      mod.Name,
+			Link:      mod.Link,
+			Updated:   isUpdated,
+			Necessary: mod.Necessary,
+		}
+		r = append(r, Res)
+	}
 
 	return
 }
@@ -44,7 +55,7 @@ func (m Modcheck) checkMod(id string) (r bool) {
 	Check(err, "Error while doing request")
 	defer res.Body.Close()
 
-	respStruct := Response{}
+	respStruct := models.Response{}
 	err = json.NewDecoder(res.Body).Decode(&respStruct)
 	Check(err, "Error while decoding JSON")
 

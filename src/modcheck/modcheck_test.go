@@ -19,3 +19,7 @@ func TestCheckMod(t *testing.T) {
 	b := mc.checkMod("442282")
 	is.True(b)
 }
+
+func TestCheck(t *testing.T) {
+	mc.Check()
+}
