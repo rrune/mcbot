@@ -104,7 +104,7 @@
         "onCurse": true
     },
     {
-        "name": "Minecraft Command Permissions",
+        "name": "Command Permissions",
         "link": "https://github.com/TjeuKayim/minecraft-command-permissions-fabric",
         "curseId": "",
         "necessary": true,
@@ -146,14 +146,14 @@
         "onCurse": true
     },
     {
-        "name": "TabTPS plugin version badge",
+        "name": "TabTPS",
         "link": "https://github.com/jpenilla/TabTPS",
         "curseId": "",
         "necessary": false,
         "onCurse": false
     },
     {
-        "name": "Villagers follow Emeralds",
+        "name": "VillagersFollowEmeralds",
         "link": "https://www.curseforge.com/minecraft/mc-mods/villagers-follow-emeralds-fabric",
         "curseId": "391911",
         "necessary": false,

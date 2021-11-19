@@ -1,7 +1,8 @@
 package models
 
 type Config struct {
-	Token     string `yaml:"token"`
+	//Token     string `yaml:"token"`
+	Token     string `yaml:"tokenTest"`
 	GuildID   string `yaml:"guildID"`
 	ChannelID string `yaml:"channelID"`
 }
@@ -19,6 +20,7 @@ type ResMod struct {
 	Link      string
 	Updated   bool
 	Necessary bool
+	OnCurse   bool
 }
 
 type Response struct {

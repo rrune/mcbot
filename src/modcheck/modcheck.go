@@ -53,6 +53,7 @@ func (m Modcheck) Check() (r []models.ResMod) {
 				Link:      mod.Link,
 				Updated:   isUpdated,
 				Necessary: mod.Necessary,
+				OnCurse:   mod.OnCurse,
 			}
 		} else {
 			Res = models.ResMod{
@@ -60,6 +61,7 @@ func (m Modcheck) Check() (r []models.ResMod) {
 				Link:      mod.Link,
 				Updated:   false,
 				Necessary: mod.Necessary,
+				OnCurse:   mod.OnCurse,
 			}
 		}
 		r = append(r, Res)
@@ -89,28 +91,7 @@ func (m Modcheck) checkMod(id string) (r bool) {
 }
 
 func (m *Modcheck) Cache() {
-	r := []models.ResMod{}
-	for _, mod := range m.modlist {
-		var Res models.ResMod
-		if mod.OnCurse {
-			isUpdated := m.checkMod(mod.CurseID)
-			Res = models.ResMod{
-				Name:      mod.Name,
-				Link:      mod.Link,
-				Updated:   isUpdated,
-				Necessary: mod.Necessary,
-			}
-		} else {
-			Res = models.ResMod{
-				Name:      mod.Name,
-				Link:      mod.Link,
-				Updated:   false,
-				Necessary: mod.Necessary,
-			}
-		}
-		r = append(r, Res)
-	}
-	m.cache = r
+	m.cache = m.Check()
 }
 
 func (m *Modcheck) GetCache() []models.ResMod {

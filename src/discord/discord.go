@@ -1,6 +1,8 @@
 package discord
 
 import (
+	"fmt"
+
 	"github.com/bwmarrin/discordgo"
 	"github.com/rrune/mcbot/modcheck"
 	"github.com/rrune/mcbot/rcon"
@@ -102,10 +104,40 @@ func (h handler) GetHandlers() map[string]func(s *discordgo.Session, i *discordg
 		},
 		"checkmods": func(s *discordgo.Session, i *discordgo.InteractionCreate) {
 			data := h.modcheck.GetCache()
+			fields := []*discordgo.MessageEmbedField{}
+
+			for _, mod := range data {
+				updated := ":x:"
+				necessary := ""
+				if mod.Updated {
+					updated = ":white_check_mark:"
+				}
+				if !mod.OnCurse {
+					updated = "_unknown_"
+				}
+				if mod.Necessary {
+					necessary = "\n_Necessary_"
+				}
+				field := &discordgo.MessageEmbedField{
+					Name:   mod.Name,
+					Value:  fmt.Sprintf("Updated: %s%s", updated, necessary),
+					Inline: true,
+				}
+				fields = append(fields, field)
+			}
+
 			s.InteractionRespond(i.Interaction, &discordgo.InteractionResponse{
 				Type: discordgo.InteractionResponseChannelMessageWithSource,
 				Data: &discordgo.InteractionResponseData{
-					Content: data[0].Name,
+					Embeds: []*discordgo.MessageEmbed{
+						{
+							Type:        "rich",
+							Title:       "Mods",
+							Description: "See which mods are updated to 1.18",
+							Color:       0x5b8731,
+							Fields:      fields,
+						},
+					},
 				},
 			})
 		},
