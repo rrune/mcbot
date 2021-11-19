@@ -93,7 +93,7 @@
         "name": "Lithium",
         "link": "https://www.curseforge.com/minecraft/mc-mods/lithium",
         "curseId": "360438",
-        "necessary": false,
+        "necessary": true,
         "onCurse": true
     },
     {
