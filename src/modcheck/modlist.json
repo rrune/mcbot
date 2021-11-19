@@ -84,7 +84,7 @@
     },
     {
         "name": "LazyDFU",
-        "link": "lazydfu",
+        "link": "https://www.curseforge.com/minecraft/mc-mods/lazydfu",
         "curseId": "433518",
         "necessary": false,
         "onCurse": true
