@@ -2,6 +2,7 @@ package modcheck
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/http"
 	"os"
 
@@ -15,19 +16,24 @@ var client = &http.Client{}
 
 type Modcheck struct {
 	modlist []models.Mod
+	cache   []models.ResMod
 }
 
 func Init() Modcheck {
 	modlist := []models.Mod{}
-	//f, err := os.ReadFile("./modcheck/modlist.json")
-	f, err := os.ReadFile("./modlist.json")
+	f, err := os.ReadFile("./modcheck/modlist.json")
+	//f, err := os.ReadFile("./modlist.json")
 	Check(err, "Error while reading the Modlist")
 	err = json.Unmarshal(f, &modlist)
 	Check(err, "Error while unmarshaling Modlist")
 
 	modcheck := Modcheck{
 		modlist: modlist,
+		cache:   []models.ResMod{},
 	}
+
+	modcheck.Cache()
+	modcheck.GetCache()
 	return modcheck
 }
 
@@ -44,6 +50,36 @@ func (m Modcheck) Check() (r []models.ResMod) {
 	}
 
 	return
+}
+
+func (m Modcheck) Cache() {
+	r := []models.ResMod{}
+	for _, mod := range m.modlist {
+		var Res models.ResMod
+		if mod.OnCurse {
+			isUpdated := m.checkMod(mod.CurseID)
+			Res = models.ResMod{
+				Name:      mod.Name,
+				Link:      mod.Link,
+				Updated:   isUpdated,
+				Necessary: mod.Necessary,
+			}
+		} else {
+			Res = models.ResMod{
+				Name:      mod.Name,
+				Link:      mod.Link,
+				Updated:   false,
+				Necessary: mod.Necessary,
+			}
+		}
+		r = append(r, Res)
+	}
+	m.cache = r
+}
+
+func (m Modcheck) GetCache() []models.ResMod {
+	fmt.Println(m.cache)
+	return m.cache
 }
 
 func (m Modcheck) checkMod(id string) (r bool) {

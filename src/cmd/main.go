@@ -22,17 +22,20 @@ func main() {
 	dg, err := discordgo.New("Bot " + config.Token)
 	Check(err, "error creating Discord session")
 
-	h := discord.New()
+	handler := discord.New()
 
-	for _, handler := range h.GetHandlers() {
-		dg.AddHandler(handler)
-	}
+	commandHandlers := handler.GetHandlers()
+	dg.AddHandler(func(s *discordgo.Session, i *discordgo.InteractionCreate) {
+		if h, ok := commandHandlers[i.ApplicationCommandData().Name]; ok {
+			h(s, i)
+		}
+	})
 
 	err = dg.Open()
 	Check(err, "error opening connection")
 
-	for _, command := range h.GetCommands() {
-		_, err = dg.ApplicationCommandCreate(dg.State.User.ID, "", command)
+	for _, command := range handler.GetCommands() {
+		_, err = dg.ApplicationCommandCreate(dg.State.User.ID, "496332886392438786", command)
 		Check(err, fmt.Sprintf("Cannot create '%v' command: %v", command.Name, err))
 	}
 

@@ -1,6 +1,8 @@
 package discord
 
 import (
+	"fmt"
+
 	"github.com/bwmarrin/discordgo"
 	"github.com/rrune/mcbot/modcheck"
 	"github.com/rrune/mcbot/rcon"
@@ -47,7 +49,7 @@ var command = []*discordgo.ApplicationCommand{
 		},
 	},
 	{
-		Name:        "CheckMods",
+		Name:        "checkmods",
 		Description: "Check which mods are updated to 1.18",
 	},
 }
@@ -100,9 +102,9 @@ func (h handler) GetHandlers() map[string]func(s *discordgo.Session, i *discordg
 				},
 			})
 		},
-		"checkMods": func(s *discordgo.Session, i *discordgo.InteractionCreate) {
-			if i.ApplicationCommandData()
-			data := h.modcheck.Check()
+		"checkmods": func(s *discordgo.Session, i *discordgo.InteractionCreate) {
+			data := h.modcheck.GetCache()
+			fmt.Println(data)
 			s.InteractionRespond(i.Interaction, &discordgo.InteractionResponse{
 				Type: discordgo.InteractionResponseChannelMessageWithSource,
 				Data: &discordgo.InteractionResponseData{
