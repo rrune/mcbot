@@ -120,7 +120,7 @@ func (h handler) GetHandlers() map[string]func(s *discordgo.Session, i *discordg
 				}
 				field := &discordgo.MessageEmbedField{
 					Name:   mod.Name,
-					Value:  fmt.Sprintf("Updated: %s%s", updated, necessary),
+					Value:  fmt.Sprintf("Updated: %s\n[Link](%s)%s", updated, mod.Link, necessary),
 					Inline: true,
 				}
 				fields = append(fields, field)
