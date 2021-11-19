@@ -1,8 +1,8 @@
 package models
 
 type Config struct {
-	//Token     string `yaml:"token"`
-	Token     string `yaml:"tokenTest"`
+	Token string `yaml:"token"`
+	//Token     string `yaml:"tokenTest"`
 	GuildID   string `yaml:"guildID"`
 	ChannelID string `yaml:"channelID"`
 }
