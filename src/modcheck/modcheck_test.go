@@ -23,3 +23,8 @@ func TestCheckMod(t *testing.T) {
 func TestCheck(t *testing.T) {
 	mc.Check()
 }
+
+func TestCache(t *testing.T) {
+	mc.Cache()
+	mc.GetCache()
+}

@@ -1,8 +1,6 @@
 package discord
 
 import (
-	"fmt"
-
 	"github.com/bwmarrin/discordgo"
 	"github.com/rrune/mcbot/modcheck"
 	"github.com/rrune/mcbot/rcon"
@@ -104,7 +102,6 @@ func (h handler) GetHandlers() map[string]func(s *discordgo.Session, i *discordg
 		},
 		"checkmods": func(s *discordgo.Session, i *discordgo.InteractionCreate) {
 			data := h.modcheck.GetCache()
-			fmt.Println(data)
 			s.InteractionRespond(i.Interaction, &discordgo.InteractionResponse{
 				Type: discordgo.InteractionResponseChannelMessageWithSource,
 				Data: &discordgo.InteractionResponseData{

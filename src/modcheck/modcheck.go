@@ -2,9 +2,9 @@ package modcheck
 
 import (
 	"encoding/json"
-	"fmt"
 	"net/http"
 	"os"
+	"time"
 
 	"github.com/rrune/mcbot/models"
 	. "github.com/rrune/mcbot/util"
@@ -13,10 +13,12 @@ import (
 //https://curseforgeapi.docs.apiary.io/#/reference/0/get-addon-info/get-addon-info/200?mc=reference%2F0%2Fget-addon-info%2Fget-addon-info%2F200
 
 var client = &http.Client{}
+var version = "1.18"
 
 type Modcheck struct {
 	modlist []models.Mod
 	cache   []models.ResMod
+	version string
 }
 
 func Init() Modcheck {
@@ -30,21 +32,35 @@ func Init() Modcheck {
 	modcheck := Modcheck{
 		modlist: modlist,
 		cache:   []models.ResMod{},
+		version: version,
 	}
 
-	modcheck.Cache()
-	modcheck.GetCache()
+	//modcheck.Cache()
+	//go modcheck.cacheTimer()
+	cached := make(chan bool)
+	go modcheck.cacheTimer(cached)
+	<-cached
 	return modcheck
 }
 
 func (m Modcheck) Check() (r []models.ResMod) {
 	for _, mod := range m.modlist {
-		isUpdated := m.checkMod(mod.CurseID)
-		Res := models.ResMod{
-			Name:      mod.Name,
-			Link:      mod.Link,
-			Updated:   isUpdated,
-			Necessary: mod.Necessary,
+		var Res models.ResMod
+		if mod.OnCurse {
+			isUpdated := m.checkMod(mod.CurseID)
+			Res = models.ResMod{
+				Name:      mod.Name,
+				Link:      mod.Link,
+				Updated:   isUpdated,
+				Necessary: mod.Necessary,
+			}
+		} else {
+			Res = models.ResMod{
+				Name:      mod.Name,
+				Link:      mod.Link,
+				Updated:   false,
+				Necessary: mod.Necessary,
+			}
 		}
 		r = append(r, Res)
 	}
@@ -52,7 +68,27 @@ func (m Modcheck) Check() (r []models.ResMod) {
 	return
 }
 
-func (m Modcheck) Cache() {
+func (m Modcheck) checkMod(id string) (r bool) {
+	req, err := http.NewRequest("GET", "https://addons-ecs.forgesvc.net/api/v2/addon/"+id, nil)
+	Check(err, "Error while creating Request")
+	req.Header.Set("Content-Type", "application/json")
+
+	res, err := client.Do(req)
+	Check(err, "Error while doing request")
+	defer res.Body.Close()
+
+	respStruct := models.Response{}
+	err = json.NewDecoder(res.Body).Decode(&respStruct)
+	Check(err, "Error while decoding JSON")
+
+	version := respStruct.GameVersionLatestFiles[0].GameVersion
+	if version == m.version {
+		r = true
+	}
+	return
+}
+
+func (m *Modcheck) Cache() {
 	r := []models.ResMod{}
 	for _, mod := range m.modlist {
 		var Res models.ResMod
@@ -77,27 +113,14 @@ func (m Modcheck) Cache() {
 	m.cache = r
 }
 
-func (m Modcheck) GetCache() []models.ResMod {
-	fmt.Println(m.cache)
+func (m *Modcheck) GetCache() []models.ResMod {
 	return m.cache
 }
 
-func (m Modcheck) checkMod(id string) (r bool) {
-	req, err := http.NewRequest("GET", "https://addons-ecs.forgesvc.net/api/v2/addon/"+id, nil)
-	Check(err, "Error while creating Request")
-	req.Header.Set("Content-Type", "application/json")
-
-	res, err := client.Do(req)
-	Check(err, "Error while doing request")
-	defer res.Body.Close()
-
-	respStruct := models.Response{}
-	err = json.NewDecoder(res.Body).Decode(&respStruct)
-	Check(err, "Error while decoding JSON")
-
-	version := respStruct.GameVersionLatestFiles[0].GameVersion
-	if version == "1.18" {
-		r = true
+func (m *Modcheck) cacheTimer(cached chan bool) {
+	m.Cache()
+	cached <- true
+	for range time.Tick(time.Hour * 1) {
+		m.Cache()
 	}
-	return
 }
