@@ -1,4 +1,11 @@
 [{
+        "name": "Alternate Current",
+        "link": "https://modrinth.com/mod/alternate-current",
+        "curseID": "",
+        "necessary": false,
+        "onCurse": false
+    },
+    {
         "name": "BetterLeads",
         "link": "https://www.curseforge.com/minecraft/mc-mods/betterleads",
         "curseId": "531503",
