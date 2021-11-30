@@ -24,9 +24,9 @@ type ResMod struct {
 }
 
 type Response struct {
-	GameVersionLatestFiles []GameVersionLatestFile `json:"gameVersionLatestFiles"`
-}
-
-type GameVersionLatestFile struct {
-	GameVersion string `json:"gameVersion"`
+	LastestFiles []struct {
+		SortableGameVersion []struct {
+			GameVersion string `json:"gameVersion"`
+		} `json:"sortableGameVersion"`
+	} `json:"latestFiles"`
 }

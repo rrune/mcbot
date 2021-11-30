@@ -83,9 +83,12 @@ func (m Modcheck) checkMod(id string) (r bool) {
 	err = json.NewDecoder(res.Body).Decode(&respStruct)
 	Check(err, "Error while decoding JSON")
 
-	version := respStruct.GameVersionLatestFiles[0].GameVersion
-	if version == m.version {
-		r = true
+	for _, latestFiles := range respStruct.LastestFiles {
+		for _, gameVersion := range latestFiles.SortableGameVersion {
+			if gameVersion.GameVersion == version {
+				r = true
+			}
+		}
 	}
 	return
 }
